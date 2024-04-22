@@ -1,0 +1,4 @@
+FROM openjdk:17-jdk-alpine
+COPY target/alert-0.0.1-SNAPSHOT.jar alert.jar
+EXPOSE 8080
+CMD ["java", "-jar", "alert.jar"]
