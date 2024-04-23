@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: alert-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: alert
@@ -13,25 +13,36 @@ spec:
         app: alert
     spec:
       containers:
-      - name: alert
-        image: acrlndqa.azurecr.io/laukendrasingh/alert:26
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-# service type loadbalancer       
+        - name: alert-container
+          image: acrlndqa.azurecr.io/laukendrasingh/alert:26
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: alert
-  name: alert
+  name: alert-loadbalancer
 spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 8080
-  type: ClusterIP
   selector:
     app: alert
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alert-clusterip
+spec:
+  selector:
+    app: alert
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
