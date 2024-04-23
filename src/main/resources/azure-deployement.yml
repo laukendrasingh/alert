@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: alert
-        image: acrlndqa.azurecr.io/laukendrasingh/alert:26
+        image: acrlndqa.azurecr.io/laukendrasingh/alert:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
