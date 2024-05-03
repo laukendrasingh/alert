@@ -14,16 +14,21 @@ spec:
     spec:
       containers:
         - name: alert-container
-          image: acrlndqa.azurecr.io/laukendrasingh/alert:65
+          image: acrlndqa.azurecr.io/laukendrasingh/alert:66
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env: # Setting environmental variables
-            - name: CONFIG_NAME   # Setting Database host address from configMap
+          env: #Config-map
+            - name: FIRST_NAME   #FIRST_NAME: key to read value from config-map
               valueFrom:
                 configMapKeyRef:
-                  name: config-map
-                  key: config
+                  name: alert-config-map
+                  key: firstName
+            - name: LAST_NAME   #LAST_NAME: key to read value from config-map
+              valueFrom:
+                configMapKeyRef:
+                  name: alert-config-map
+                  key: lastName
 ---
 apiVersion: v1
 kind: Service

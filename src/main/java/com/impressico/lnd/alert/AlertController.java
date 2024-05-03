@@ -17,8 +17,10 @@ public class AlertController {
     @Autowired
     private AlertRepository alertRepository;
 
-    @Value("${value.from.configmap}")
-    private String configMap;
+    @Value("${value.from.configmap.firstname}")
+    private String firstName;
+    @Value("${value.from.configmap.lastname}")
+    private String lastName;
 
     @GetMapping("/")
     public ResponseEntity<List<Alert>> getAll() {
@@ -35,8 +37,8 @@ public class AlertController {
         return new ResponseEntity<>(alertRepository.findAllByEmployeeId(employeeId), HttpStatus.OK);
     }
 
-    @GetMapping("/configmap")
-    public String getValuesFromConfgimap() {
-        return "configMap: " + configMap;
+    @GetMapping("/configMap")
+    public String getValuesFromConfgiMap() {
+        return "ConfigMapValues: [firstName: " + firstName + ", lastName: " + lastName + "]";
     }
 }

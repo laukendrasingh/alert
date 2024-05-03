@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alert-config-map
+data:
+  firstName: Laukendra
+  lastName: Singh
