@@ -19,8 +19,6 @@ public class AlertController {
 
     @Value("${value.from.configmap}")
     private String configMap;
-    @Value("${value.from.secret}")
-    private String secret;
 
     @GetMapping("/")
     public ResponseEntity<List<Alert>> getAll() {
@@ -39,6 +37,6 @@ public class AlertController {
 
     @GetMapping("/configmap")
     public String getValuesFromConfgimap() {
-        return configMap+":: secret = "+ secret;
+        return "configMap: " + configMap;
     }
 }
